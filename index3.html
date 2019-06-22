@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="util.js"></script>
+</head>
+
+<body>
+    <button>Get Products</button>    
+    <div id="products">
+        <table id="productsTbl" border="1">
+            <thead><tr><th>Product Name</th><th>Price</th></tr></thead>
+            <tbody>
+               
+            </tbody>
+        </table>
+    </div>
+    <script>        
+        console.log('JavaScript block'); 
+        
+        var btn = document.querySelector('button');       
+        /*
+        btn.addEventListener('click', function (){
+            console.log('Button Clicked');
+        });
+        */
+
+        function loadProducts(){
+            console.log('loadProducts');
+            var url = "http://localhost:8080/servlet-webservice-demo/ListProductServlet";
+            ajax(url, "GET", function (response) { 
+                console.log(response); 
+                var products = JSON.parse(response);
+                console.log(products.length);
+                var tbody = document.querySelector("tbody");
+                for(var i=0; i<products.length;i++){
+                    var productObj = products[i];
+                    console.log(productObj.product_name + "-" + productObj.price);
+                
+                    //<tr><td>productname</td><td>price</td></tr>
+                    var tr = document.createElement("tr");
+                    var td1 = document.createElement("td");
+                    td1.textContent = productObj.product_name;
+                    var td2 = document.createElement("td");
+                    td2.textContent = productObj.price;
+                    tr.append(td1);
+                    tr.append(td2);
+                    tbody.append(tr);
+                
+                }
+                
+
+            });
+        }
+        btn.addEventListener('click',loadProducts);
+
+    </script>
+</body>
+
+</html>

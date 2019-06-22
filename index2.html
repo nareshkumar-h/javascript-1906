@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="util.js"></script>
+</head>
+
+<body>
+    <button>Get Products</button>    
+    <div id="products">
+
+    </div>
+    <script>        
+        console.log('JavaScript block'); 
+        
+        var btn = document.querySelector('button');       
+        /*
+        btn.addEventListener('click', function (){
+            console.log('Button Clicked');
+        });
+        */
+
+        function loadProducts(){
+            console.log('loadProducts');
+            var url = "http://localhost:8080/servlet-webservice-demo/ListProductServlet";
+            ajax(url, "GET", function (response) { 
+                console.log(response); 
+                var productsDiv = document.querySelector("#products");
+                productsDiv.innerHTML = response; 
+            });
+        }
+        btn.addEventListener('click',loadProducts);
+
+    </script>
+</body>
+
+</html>
